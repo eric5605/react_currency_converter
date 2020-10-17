@@ -3,73 +3,102 @@ import { Link } from "react-router-dom";
 import { json, checkStatus } from './utils';
 
 class CurrencyConverter extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
+
     this.state = {
-      rate: 0.89,
-      usd: 1,
-      euro: 1 * 0.89,
+      baseCurrency:'USD',
+      convertToCurrency:'GBP',
+      baseAmount: 1,
+      rates: [],
+      currencies: []
     };
 
-    this.handleUsdChange = this.handleUsdChange.bind(this);
-    this.handleEuroChange = this.handleEuroChange.bind(this);
+    this.changeBaseCurrency = this.changeBaseCurrency.bind(this);
+    this.changeConvertToCurrency = this.changeConvertToCurrency.bind(this);
+    this.changeBaseAmount = this.changeBaseAmount.bind(this);
+    this.getConvertedCurrency = this.getConvertedCurrency.bind(this);
+    this.callAPI = this.callAPI.bind(this);
   }
 
-  toUsd(amount, rate) {
-    return amount * (1 / rate);
+  componentDidMount() {
+   this.callAPI(this.state.baseCurrency)
   }
 
-  toEuro(amount, rate) {
-    return amount * rate;
+  changeBaseCurrency(e) {
+    this.setState({ baseCurrency: e.target.value});
+    this.callAPI(e.target.value)
+
   }
 
-  convert(amount, rate, equation) {
-    // console.log(typeof amount);
-    const input = parseFloat(amount);
-    if (Number.isNaN(input)) {
-      return '';
-    }
-    return equation(input, rate).toFixed(3);
-  }
+ callAPI(base) {
+   const api = `https://api.exchangeratesapi.io/latest?base=${base}`;
 
-  handleUsdChange(event) {
-    const euro = this.convert(event.target.value, this.state.rate, this.toEuro);
+    fetch(api)
+     .then(results => {
+        return results.json();
+    }).then(data => this.setState({
+      rates: data['rates'],
+      currencies: Object.keys(data['rates']).sort()
+    }));
+
+ }
+
+
+  changeConvertToCurrency(e) {
     this.setState({
-      usd: event.target.value,
-      euro
+      convertToCurrency: e.target.value
     });
   }
 
-  handleEuroChange(event) {
-    const usd = this.convert(event.target.value, this.state.rate, this.toUsd);
-    this.setState({
-      euro: event.target.value,
-      usd
-    });
+  changeBaseAmount(e) {
+   this.setState({
+     baseAmount: e.target.value
+   });
+  }
+
+  getConvertedCurrency(baseAmount,convertToCurrency,rates) {
+      return Number.parseFloat(baseAmount * rates[convertToCurrency]).toFixed(3);
   }
 
   render() {
-    const { rate, usd, euro } = this.state;
+    const {currencies,rates,baseCurrency,baseAmount,convertToCurrency} = this.state;
 
-    return (
-      <div className="container">
-        <div className="text-center p-3 mb-2">
-          <h2 className="mb-2">Currency Converter</h2>
-          <h4>USD 1 : {rate} EURO</h4>
-        </div>
-        <div className="row text-center">
-          <div className="col-12">
-            <span className="mr-1">USD</span>
-            <input value={usd} onChange={this.handleUsdChange} type="number" />
-            <span className="mx-3">=</span>
-            <input value={euro} onChange={this.handleEuroChange} type="number" />
-            <span className="ml-1">EURO</span>
-          </div>
-        </div>
-      </div>
-    )
+    const currencyChoice = currencies.map(currency =>
+      <option key={currency} value={currency}> {currency} </option>
+    );
+
+    const result = this.getConvertedCurrency(baseAmount, convertToCurrency, rates);
+
+
+    return(
+      <div className="form-container text-center pt-5" id='currency-exchange'>
+        <form className='ui mini form' id='exchange-box'>
+
+         <h3>Convert from: {baseCurrency}</h3>
+          <select  value={baseCurrency} onChange={this.changeBaseCurrency}>
+            {currencyChoice}
+            <option>{baseCurrency}</option>
+          </select>
+
+          <h3>Convert to: {convertToCurrency}</h3>
+          <select value={convertToCurrency} onChange={this.changeConvertToCurrency}>
+            {currencyChoice}
+          </select>
+
+         <h3>Amount:</h3>
+           <input type='number'
+                  id='base-amount'
+                  defaultValue={baseAmount}
+                  onChange={this.changeBaseAmount}>
+          </input>
+       </form>
+       <h2 id='result-text'>{baseAmount} {baseCurrency} is equal to {result} {convertToCurrency}</h2>
+     </div>
+    );
   }
 }
+
 
 
 export default CurrencyConverter;
