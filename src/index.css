@@ -32,10 +32,8 @@ body {
 }
 
 #exchange-box {
-  padding-top: 25px;
   box-shadow: 3px 5px 45px black;
-  width: 30%;
-  height: 450px;
+  width: 35%;
   margin: auto;
   border-radius: 18px;
   background: grey;

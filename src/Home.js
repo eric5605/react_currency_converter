@@ -28,11 +28,10 @@ class CurrencyConverter extends React.Component {
   changeBaseCurrency(e) {
     this.setState({ baseCurrency: e.target.value});
     this.callAPI(e.target.value)
-
   }
 
  callAPI(base) {
-   const api = `https://api.exchangeratesapi.io/latest?base=${base}`;
+    const api = `https://alt-exchange-rate.herokuapp.com/latest?base=${base}`;
 
     fetch(api)
      .then(results => {
@@ -94,7 +93,9 @@ class CurrencyConverter extends React.Component {
           </input>
        </form>
        <h2 id='result-text'>{baseAmount} {baseCurrency} is equal to {result} {convertToCurrency}</h2>
+       <hr />
      </div>
+
     );
   }
 }
