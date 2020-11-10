@@ -11,34 +11,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-body {
-  background: lightgrey;
-}
-
-#result-text {
-  padding-left: 1.1em;
-  padding-bottom: 2em;
-  padding-top: 70px;
-  text-align: center;
-}
-
-.form {
-  padding-bottom: 2em;
-}
-
-#base-amount {
-  width: 50px;
-}
-
-#exchange-box {
-  box-shadow: 3px 5px 45px black;
-  width: 35%;
-  margin: auto;
-  border-radius: 18px;
-  background: grey;
-}
-
-#exchange-box h3 {
-  padding: 25px;
-}

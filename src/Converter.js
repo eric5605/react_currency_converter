@@ -1,6 +1,4 @@
 import React from 'react';
-import { Link } from "react-router-dom";
-import { json, checkStatus } from './utils';
 
 class CurrencyConverter extends React.Component {
   constructor() {
@@ -11,7 +9,9 @@ class CurrencyConverter extends React.Component {
       convertToCurrency:'GBP',
       baseAmount: 1,
       rates: [],
-      currencies: []
+      currencies: [],
+      allMoney: [],
+
     };
 
     this.changeBaseCurrency = this.changeBaseCurrency.bind(this);
@@ -19,27 +19,37 @@ class CurrencyConverter extends React.Component {
     this.changeBaseAmount = this.changeBaseAmount.bind(this);
     this.getConvertedCurrency = this.getConvertedCurrency.bind(this);
     this.callAPI = this.callAPI.bind(this);
+
   }
 
   componentDidMount() {
    this.callAPI(this.state.baseCurrency)
+
   }
 
   changeBaseCurrency(e) {
     this.setState({ baseCurrency: e.target.value});
     this.callAPI(e.target.value)
+
   }
 
  callAPI(base) {
     const api = `https://alt-exchange-rate.herokuapp.com/latest?base=${base}`;
 
+
     fetch(api)
      .then(results => {
+
         return results.json();
     }).then(data => this.setState({
       rates: data['rates'],
-      currencies: Object.keys(data['rates']).sort()
+      currencies: Object.keys(data['rates']).sort(),
+      allMoney: data['rates']
     }));
+
+console.log(api)
+
+console.log(this.state.rates)
 
  }
 
@@ -61,6 +71,7 @@ class CurrencyConverter extends React.Component {
   }
 
   render() {
+
     const {currencies,rates,baseCurrency,baseAmount,convertToCurrency} = this.state;
 
     const currencyChoice = currencies.map(currency =>
@@ -94,7 +105,15 @@ class CurrencyConverter extends React.Component {
        </form>
        <h2 id='result-text'>{baseAmount} {baseCurrency} is equal to {result} {convertToCurrency}</h2>
        <hr />
+
+       <div>
+        <h2>All Rates</h2>
+        <p>code goes here</p>
+
+       </div>
      </div>
+
+
 
     );
   }
