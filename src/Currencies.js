@@ -22,13 +22,11 @@ class Currencies extends React.Component {
 
   componentDidMount() {
    this.callAPI(this.state.baseCurrency)
-
   }
 
   changeBaseCurrency(e) {
     this.setState({ baseCurrency: e.target.value});
     this.callAPI(e.target.value)
-
   }
 
  callAPI(base) {
@@ -40,15 +38,8 @@ class Currencies extends React.Component {
     }).then(data => this.setState({
       rates: data['rates'],
       currencies: Object.keys(data['rates']).sort(),
-      allMoney: data
     }));
-
-// console.log(api)
-// console.log(this.state.currencies)
-// console.log(this.state.rates)
-
  }
-
 
   changeConvertToCurrency(e) {
     this.setState({ convertToCurrency: e.target.value });
@@ -75,32 +66,32 @@ class Currencies extends React.Component {
     // currency list
 
     const tableRows = Object.keys(rates).map(function(key) {
-
       const convertedRate = Number.parseFloat(rates[key]).toFixed(3);
-      const countryName = key;
+      const countryCode = key;
 
       return (
         <tr key={key}>
-            <td>{countryName}  .......................................................  {convertedRate} </td>
+            <td>{countryCode}  .......................................................  {convertedRate} </td>
         </tr>
       )
     })
 
-
     return(
 
-    <div className="form-container text-center pt-5" id='currency-exchange'>
+      <div className="form-container text-center pt-5" id='currency-exchange'>
         <form className='ui mini form main' id='exchange-box'>
 
          <h3>Convert from: {baseCurrency}</h3>
-          <select  value={baseCurrency} onChange={this.changeBaseCurrency}>
-            {currencyChoice}
-            <option>{baseCurrency}</option>
+          <select
+              value={baseCurrency}
+              onChange={this.changeBaseCurrency}>{currencyChoice}
+          <option>{baseCurrency}</option>
           </select>
 
           <h3>Convert to: {convertToCurrency}</h3>
-          <select value={convertToCurrency} onChange={this.changeConvertToCurrency}>
-            {currencyChoice}
+          <select
+               value={convertToCurrency}
+               onChange={this.changeConvertToCurrency}>{currencyChoice}
           </select>
 
          <h3>Amount:</h3>
@@ -115,20 +106,16 @@ class Currencies extends React.Component {
        <hr />
 
        <div className="container pt-5">
+       <h3>{baseCurrency} Exchange Rates Table</h3>
           <table className="currency-list">
               <tbody>{tableRows}</tbody>
           </table>
         </div>
 
-
      </div>
-
-
 
     );
   }
 }
-
-
 
 export default Currencies;
