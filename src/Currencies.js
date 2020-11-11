@@ -1,6 +1,6 @@
 import React from 'react';
 
-class CurrencyConverter extends React.Component {
+class Currencies extends React.Component {
   constructor() {
     super();
 
@@ -10,7 +10,7 @@ class CurrencyConverter extends React.Component {
       baseAmount: 1,
       rates: [],
       currencies: [],
-      allMoney: [],
+      allMoney: []
 
     };
 
@@ -44,11 +44,13 @@ class CurrencyConverter extends React.Component {
     }).then(data => this.setState({
       rates: data['rates'],
       currencies: Object.keys(data['rates']).sort(),
-      allMoney: data['rates']
+      allMoney: data
     }));
 
 console.log(api)
 
+console.log(this.state.allMoney.rates)
+console.log(this.state.currencies)
 console.log(this.state.rates)
 
  }
@@ -80,6 +82,16 @@ console.log(this.state.rates)
 
     const result = this.getConvertedCurrency(baseAmount, convertToCurrency, rates);
 
+    // currency list
+
+    const tableRows = Object.keys(rates).map(function(key) {
+      return (
+        <tr>
+            <td>{key} {rates[key]} </td>
+        </tr>
+      )
+    })
+
 
     return(
       <div className="form-container text-center pt-5" id='currency-exchange'>
@@ -106,11 +118,12 @@ console.log(this.state.rates)
        <h2 id='result-text'>{baseAmount} {baseCurrency} is equal to {result} {convertToCurrency}</h2>
        <hr />
 
-       <div>
-        <h2>All Rates</h2>
-        <p>code goes here</p>
+       <div className="App">
+          <table>
+              <tbody>{tableRows}</tbody>
+          </table>
+        </div>
 
-       </div>
      </div>
 
 
@@ -121,4 +134,4 @@ console.log(this.state.rates)
 
 
 
-export default CurrencyConverter;
+export default Currencies;
