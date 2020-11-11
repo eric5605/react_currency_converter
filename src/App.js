@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 import Currencies from './Currencies';
-import Grid from './Grid';
+
 
 import './App.css';
 
@@ -19,7 +19,6 @@ const App = () => {
 
       <Switch>
         <Route path="/" exact component={Currencies} />
-        <Route path="/" exact component={Grid} />
         <Route component={NotFound} />
       </Switch>
 

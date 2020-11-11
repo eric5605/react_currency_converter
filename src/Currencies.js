@@ -1,4 +1,5 @@
 import React from 'react';
+import './App.css'
 
 class Currencies extends React.Component {
   constructor() {
@@ -10,8 +11,6 @@ class Currencies extends React.Component {
       baseAmount: 1,
       rates: [],
       currencies: [],
-      allMoney: []
-
     };
 
     this.changeBaseCurrency = this.changeBaseCurrency.bind(this);
@@ -19,7 +18,6 @@ class Currencies extends React.Component {
     this.changeBaseAmount = this.changeBaseAmount.bind(this);
     this.getConvertedCurrency = this.getConvertedCurrency.bind(this);
     this.callAPI = this.callAPI.bind(this);
-
   }
 
   componentDidMount() {
@@ -36,10 +34,8 @@ class Currencies extends React.Component {
  callAPI(base) {
     const api = `https://alt-exchange-rate.herokuapp.com/latest?base=${base}`;
 
-
     fetch(api)
      .then(results => {
-
         return results.json();
     }).then(data => this.setState({
       rates: data['rates'],
@@ -47,25 +43,19 @@ class Currencies extends React.Component {
       allMoney: data
     }));
 
-console.log(api)
-
-console.log(this.state.allMoney.rates)
-console.log(this.state.currencies)
-console.log(this.state.rates)
+// console.log(api)
+// console.log(this.state.currencies)
+// console.log(this.state.rates)
 
  }
 
 
   changeConvertToCurrency(e) {
-    this.setState({
-      convertToCurrency: e.target.value
-    });
+    this.setState({ convertToCurrency: e.target.value });
   }
 
   changeBaseAmount(e) {
-   this.setState({
-     baseAmount: e.target.value
-   });
+   this.setState({ baseAmount: e.target.value });
   }
 
   getConvertedCurrency(baseAmount,convertToCurrency,rates) {
@@ -85,17 +75,22 @@ console.log(this.state.rates)
     // currency list
 
     const tableRows = Object.keys(rates).map(function(key) {
+
+      const convertedRate = Number.parseFloat(rates[key]).toFixed(3);
+      const countryName = key;
+
       return (
-        <tr>
-            <td>{key} {rates[key]} </td>
+        <tr key={key}>
+            <td>{countryName}  .......................................................  {convertedRate} </td>
         </tr>
       )
     })
 
 
     return(
-      <div className="form-container text-center pt-5" id='currency-exchange'>
-        <form className='ui mini form' id='exchange-box'>
+
+    <div className="form-container text-center pt-5" id='currency-exchange'>
+        <form className='ui mini form main' id='exchange-box'>
 
          <h3>Convert from: {baseCurrency}</h3>
           <select  value={baseCurrency} onChange={this.changeBaseCurrency}>
@@ -115,14 +110,16 @@ console.log(this.state.rates)
                   onChange={this.changeBaseAmount}>
           </input>
        </form>
+
        <h2 id='result-text'>{baseAmount} {baseCurrency} is equal to {result} {convertToCurrency}</h2>
        <hr />
 
-       <div className="App">
-          <table>
+       <div className="container pt-5">
+          <table className="currency-list">
               <tbody>{tableRows}</tbody>
           </table>
         </div>
+
 
      </div>
 

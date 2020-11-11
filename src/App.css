@@ -1,0 +1,17 @@
+body {
+  background: #ADD8E6;
+}
+
+.currency-list {
+  border: solid black 5px;
+  margin: auto;
+}
+
+#exchange-box {
+  border: solid red 5px;
+}
+
+#currency-exchange {
+  border: solid green 10px;
+  text-align: center;
+}
