@@ -71,14 +71,16 @@ class Currencies extends React.Component {
 
        return (
          <tr key={key}>
-             <td>{countryCode}  .......................................................  {convertedRate} </td>
+             <td className="country-code">{countryCode}</td>
+
+             <td className="converted-rate">{convertedRate} </td>
          </tr>
        )
      })
 
      return(
 
-       <div className="container text-center pt-5 w-50" id='currency-exchange'>
+       <div className="container text-center pt-5" id='currency-exchange'>
          <form className='ui mini form main' id='converter'>
 
           <h3>Convert from: {baseCurrency}</h3>
@@ -106,13 +108,19 @@ class Currencies extends React.Component {
         </form>
         <hr />
 
-        <h3>{baseCurrency} Exchange Rates Table</h3>
-           <table className="table table-striped currency-list">
+        <h3 className="currency-list">Exchange Rates Table</h3>
+          <table className="table table-striped">
+          <thead>
+             <tr>
+               <th className="country-code">Country</th>
+               <th className="converted-rate">{baseAmount}.00 {baseCurrency}</th>
+             </tr>
+            </thead>
                <tbody>{tableRows}</tbody>
-           </table>
+
+          </table>
 
          </div>
-
 
 
      );

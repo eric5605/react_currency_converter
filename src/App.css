@@ -2,14 +2,18 @@ body {
   background: lightblue;
 }
 
-.currency-list {
-  border: solid black 5px;
-  width: 100%;
+table {
+  border: 5px solid grey;
+  width: 90%;
+  margin: auto;
+  font-size: 25px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 #converter {
   border: solid red 5px;
   padding: 50px;
+  font-size: 25px;
 }
 
 #currency-exchange {
@@ -24,6 +28,14 @@ body {
 h3 {
   padding-top: 20px;
   padding-bottom: 20px;
+}
+
+.country-code {
+  text-align: left;
+}
+
+.converted-rate {
+  text-align: right;
 }
 
 /* div {
