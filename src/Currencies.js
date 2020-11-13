@@ -55,67 +55,67 @@ class Currencies extends React.Component {
 
   render() {
 
-    const {currencies,rates,baseCurrency,baseAmount,convertToCurrency} = this.state;
+     const {currencies,rates,baseCurrency,baseAmount,convertToCurrency} = this.state;
 
-    const currencyChoice = currencies.map(currency =>
-      <option key={currency} value={currency}> {currency} </option>
-    );
+     const currencyChoice = currencies.map(currency =>
+       <option key={currency} value={currency}> {currency} </option>
+     );
 
-    const result = this.getConvertedCurrency(baseAmount, convertToCurrency, rates);
+     const result = this.getConvertedCurrency(baseAmount, convertToCurrency, rates);
 
-    // currency list
+     // currency list
 
-    const tableRows = Object.keys(rates).map(function(key) {
-      const convertedRate = Number.parseFloat(rates[key]).toFixed(3);
-      const countryCode = key;
+     const tableRows = Object.keys(rates).map(function(key) {
+       const convertedRate = Number.parseFloat(rates[key]).toFixed(3);
+       const countryCode = key;
 
-      return (
-        <tr key={key}>
-            <td>{countryCode}  .......................................................  {convertedRate} </td>
-        </tr>
-      )
-    })
+       return (
+         <tr key={key}>
+             <td>{countryCode}  .......................................................  {convertedRate} </td>
+         </tr>
+       )
+     })
 
-    return(
+     return(
 
-      <div className="form-container text-center pt-5" id='currency-exchange'>
-        <form className='ui mini form main' id='exchange-box'>
+       <div className="form-container text-center pt-5" id='currency-exchange'>
+         <form className='ui mini form main' id='exchange-box'>
 
-         <h3>Convert from: {baseCurrency}</h3>
-          <select
-              value={baseCurrency}
-              onChange={this.changeBaseCurrency}>{currencyChoice}
-          <option>{baseCurrency}</option>
-          </select>
+          <h3>Convert from: {baseCurrency}</h3>
+           <select
+               value={baseCurrency}
+               onChange={this.changeBaseCurrency}>{currencyChoice}
+           <option>{baseCurrency}</option>
+           </select>
 
-          <h3>Convert to: {convertToCurrency}</h3>
-          <select
-               value={convertToCurrency}
-               onChange={this.changeConvertToCurrency}>{currencyChoice}
-          </select>
+           <h3>Convert to: {convertToCurrency}</h3>
+           <select
+                value={convertToCurrency}
+                onChange={this.changeConvertToCurrency}>{currencyChoice}
+           </select>
 
-         <h3>Amount:</h3>
-           <input type='number'
-                  id='base-amount'
-                  defaultValue={baseAmount}
-                  onChange={this.changeBaseAmount}>
-          </input>
-       </form>
+          <h3>Amount:</h3>
+            <input type='number'
+                   id='base-amount'
+                   defaultValue={baseAmount}
+                   onChange={this.changeBaseAmount}>
+           </input>
+        </form>
 
-       <h2 id='result-text'>{baseAmount} {baseCurrency} is equal to {result} {convertToCurrency}</h2>
-       <hr />
+        <h2 id='result-text'>{baseAmount} {baseCurrency} is equal to {result} {convertToCurrency}</h2>
+        <hr />
 
-       <div className="container pt-5">
-       <h3>{baseCurrency} Exchange Rates Table</h3>
-          <table className="currency-list">
-              <tbody>{tableRows}</tbody>
-          </table>
-        </div>
+        <div className="container pt-5">
+        <h3>{baseCurrency} Exchange Rates Table</h3>
+           <table className="currency-list">
+               <tbody>{tableRows}</tbody>
+           </table>
+         </div>
 
-     </div>
+      </div>
 
-    );
-  }
-}
+     );
+   }
+ }
 
-export default Currencies;
+export default Currencies
