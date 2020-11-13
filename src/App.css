@@ -4,18 +4,31 @@ body {
 
 .currency-list {
   border: solid black 5px;
-  margin: auto;
+  width: 100%;
 }
 
-/* #exchange-box {
+#converter {
   border: solid red 5px;
-} */
+  padding: 50px;
+}
 
 #currency-exchange {
   border: solid green 10px;
-  text-align: center;
 }
 
 .main {
   box-shadow: 3px 5px 25px 25px grey;
+  border-radius: 40px;
 }
+
+h3 {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+/* div {
+  margin: 2em auto;
+  padding: 0 auto;
+  background: white;
+  border-radius: 8px;
+} */
