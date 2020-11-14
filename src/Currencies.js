@@ -80,7 +80,7 @@ class Currencies extends React.Component {
 
      return(
 
-       <div className="container text-center pt-5" id='currency-exchange'>
+       <div className="container text-center converter">
          <form className='ui mini form main' id='converter'>
 
           <h3>Convert from: {baseCurrency}</h3>
@@ -100,10 +100,11 @@ class Currencies extends React.Component {
             <input type='number'
                    id='base-amount'
                    defaultValue={baseAmount}
+                   className="amount-box"
                    onChange={this.changeBaseAmount}>
            </input>
 
-          <h3 id='result-text'>{baseAmount} {baseCurrency} is equal to {result} {convertToCurrency}</h3>
+          <h3>{baseAmount} {baseCurrency} is equal to {result} {convertToCurrency}</h3>
 
         </form>
         <hr />
@@ -121,8 +122,6 @@ class Currencies extends React.Component {
           </table>
 
          </div>
-
-
      );
    }
  }

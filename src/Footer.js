@@ -1,19 +1,16 @@
-import React from 'react'
+import React from "react";
+import './index.css'
 
+const Footer = () => (
+  <footer className="footer border border-dark">
+     <div className="container border border-danger">
 
-const Footer = () => {
-  return (
-    <footer className="p-3 bg-light">
-      <div className="mb-2">
-        <a className="badge" href="https://github.com/eric5605/react_currency_converter">GitHub</a>
-      </div>
-      <div className="mb-2">
-        <a className="badge" href="https://www.linkedin.com/in/eric-herman-14857a92">linkedin</a>
-      </div>
-      <div>
-      </div>
-    </footer>
-  )
-}
+       <span className="pb-3" id="contact">Contact: <a href="https://github.com/eric5605"> GitHub</a>    <a href="https://www.linkedin.com/feed/"> LinkedIn</a></span>
 
-export default Footer
+       <span className="float-right text-muted">Copyright © Eric A. Herman Ltd. 2020. All Rights Reserved</span>
+
+     </div>
+   </footer>
+);
+
+export default Footer;
