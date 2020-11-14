@@ -81,7 +81,7 @@ class Currencies extends React.Component {
      return(
 
        <div className="container text-center converter">
-         <form className='ui mini form main' id='converter'>
+         <form className='ui mini form main'>
 
           <h3>Convert from: {baseCurrency}</h3>
            <select

@@ -1,13 +1,16 @@
 import React from "react";
 import './index.css'
+import "./App.css"
 
 const Footer = () => (
-  <footer className="footer border border-dark">
-     <div className="container border border-danger">
+  <footer className="footer py-2">
+     <div className="container">
 
-       <span className="pb-3" id="contact">Contact: <a href="https://github.com/eric5605"> GitHub</a>    <a href="https://www.linkedin.com/feed/"> LinkedIn</a></span>
+       <span className="pb-3 h5" id="contact">Contact: <a href="https://github.com/eric5605" className="px-3"> GitHub </a>
 
-       <span className="float-right text-muted">Copyright © Eric A. Herman Ltd. 2020. All Rights Reserved</span>
+       <a href="https://www.linkedin.com/feed/"> LinkedIn </a></span>
+
+       <span className="float-right">Copyright © Eric A. Herman Ltd. 2020. All Rights Reserved</span>
 
      </div>
    </footer>
