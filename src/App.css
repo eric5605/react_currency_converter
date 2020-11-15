@@ -30,8 +30,8 @@ table {
 }
 
 .main {
-  box-shadow: 3px 5px 25px 25px grey;
-  border-radius: 40px;
+  box-shadow: 3px 5px 5px 5px grey;
+  border-radius: 10px;
 }
 
 h3 {
