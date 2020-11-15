@@ -1,21 +1,23 @@
 body {
-  background: lightgrey;
+  background: #FFEBCD;
 }
 
-nav {
-  background-color: #5F9EA0;
-}
-
-footer {
-  background-color: #5F9EA0;
+nav, footer{
+  background-color: grey;
+  border: 1px solid black;
 }
 
 table {
-  border: 5px solid #5F9EA0;
+  /* border: 5px solid #5F9EA0; */
   width: 90%;
   margin: auto;
   font-size: 25px;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.table-custom, form  {
+  background-color: #DEB887;
+  border: 2px solid black;
 }
 
 .amount-box {
@@ -26,10 +28,6 @@ table {
 .converter {
   font-size: 25px;
   padding-top: 100px;
-}
-
-form {
-  background-color: #5F9EA0;
 }
 
 .main {

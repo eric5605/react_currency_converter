@@ -110,7 +110,7 @@ class Currencies extends React.Component {
         <hr />
 
         <h3 className="currency-list">Exchange Rates Table</h3>
-          <table className="table table-striped">
+          <table className="table table-striped table-custom">
           <thead>
              <tr>
                <th className="country-code">Country</th>

@@ -12,16 +12,20 @@ const NotFound = () => {
   return <h2>404 Not Found</h2>;
 }
 
+
 const App = () => {
   return (
-    <Router>
+    <div>
       <Header />
-        <Switch>
-          <Route path="/" exact component={Currencies} />
-          <Route component={NotFound} />
-        </Switch>
+        <Router>
+          <Switch>
+            <Route path="/" exact component={Currencies} />
+              <Currencies />
+            <Route component={NotFound} />
+          </Switch>
+        </Router>
       <Footer />
-    </Router>
+    </div>
   );
 }
 
