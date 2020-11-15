@@ -5,13 +5,9 @@ import Currencies from './Currencies';
 import Header from './Header';
 import Footer from './Footer';
 
-
-import './App.css';
-
 const NotFound = () => {
   return <h2>404 Not Found</h2>;
 }
-
 
 const App = () => {
   return (

@@ -1,11 +1,9 @@
 import React from 'react';
 import './App.css';
 
-// 101_React_Currency_Converter/src/images/pexels-anthony-157520.jpg
 class Currencies extends React.Component {
   constructor() {
     super();
-
     this.state = {
       baseCurrency:'USD',
       convertToCurrency:'GBP',
@@ -25,11 +23,6 @@ class Currencies extends React.Component {
    this.callAPI(this.state.baseCurrency)
   }
 
-  changeBaseCurrency(e) {
-    this.setState({ baseCurrency: e.target.value});
-    this.callAPI(e.target.value)
-  }
-
  callAPI(base) {
     const api = `https://alt-exchange-rate.herokuapp.com/latest?base=${base}`;
 
@@ -40,6 +33,11 @@ class Currencies extends React.Component {
       rates: data['rates'],
       currencies: Object.keys(data['rates']).sort(),
     }));
+ }
+
+ changeBaseCurrency(e) {
+   this.setState({ baseCurrency: e.target.value});
+   this.callAPI(e.target.value);
  }
 
   changeConvertToCurrency(e) {
@@ -64,8 +62,6 @@ class Currencies extends React.Component {
 
      const result = this.getConvertedCurrency(baseAmount, convertToCurrency, rates);
 
-     // currency list
-
      const tableRows = Object.keys(rates).map(function(key) {
        const convertedRate = (Number.parseFloat(rates[key]).toFixed(3) * baseAmount);
        const countryCode = key;
@@ -73,7 +69,6 @@ class Currencies extends React.Component {
        return (
          <tr key={key}>
              <td className="country-code">{countryCode}</td>
-
              <td className="converted-rate">{convertedRate} </td>
          </tr>
        )
@@ -88,7 +83,7 @@ class Currencies extends React.Component {
            <select
                value={baseCurrency}
                onChange={this.changeBaseCurrency}>{currencyChoice}
-           <option>{baseCurrency}</option>
+               <option>{baseCurrency}</option>
            </select>
 
            <h3>Convert to: {convertToCurrency}</h3>
@@ -104,24 +99,20 @@ class Currencies extends React.Component {
                    className="amount-box"
                    onChange={this.changeBaseAmount}>
            </input>
-
           <h3>{baseAmount} {baseCurrency} is equal to {result} {convertToCurrency}</h3>
-
         </form>
         <hr />
 
         <h3 className="currency-list">Exchange Rates Table</h3>
           <table className="table table-striped table-custom">
-          <thead>
-             <tr>
-               <th className="country-code">Country</th>
-               <th className="converted-rate">{baseAmount}.00 {baseCurrency}</th>
-             </tr>
-            </thead>
+            <thead>
+               <tr>
+                 <th className="country-code">Country</th>
+                 <th className="converted-rate">{baseAmount}.00 {baseCurrency}</th>
+               </tr>
+              </thead>
                <tbody>{tableRows}</tbody>
-
           </table>
-
          </div>
      );
    }
