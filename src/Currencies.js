@@ -63,7 +63,7 @@ class Currencies extends React.Component {
      const result = this.getConvertedCurrency(baseAmount, convertToCurrency, rates);
 
      const tableRows = Object.keys(rates).map(function(key) {
-       const convertedRate = (Number.parseFloat(rates[key]).toFixed(3) * baseAmount);
+       const convertedRate = (Number.parseFloat(rates[key]) * baseAmount).toFixed(3);
        const countryCode = key;
 
        return (
