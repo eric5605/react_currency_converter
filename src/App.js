@@ -11,17 +11,16 @@ const NotFound = () => {
 
 const App = () => {
   return (
-    <div>
+    <React.Fragment>
       <Header />
-        <Router>
-          <Switch>
-            <Route path="/" exact component={Currencies} />
-              <Currencies />
-            <Route component={NotFound} />
-          </Switch>
-        </Router>
+      <Router>
+        <Switch>
+          <Route path="/" exact component={Currencies} />
+          <Route component={NotFound} />
+        </Switch>
+      </Router>
       <Footer />
-    </div>
+    </React.Fragment>
   );
 }
 
