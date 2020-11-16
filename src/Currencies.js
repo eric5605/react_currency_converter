@@ -23,12 +23,12 @@ class Currencies extends React.Component {
    this.callAPI(this.state.baseCurrency)
   }
 
- callAPI(base) {
+  callAPI(base) {
     const api = `https://alt-exchange-rate.herokuapp.com/latest?base=${base}`;
 
     fetch(api)
-     .then(results => {
-        return results.json();
+    .then(results => {
+      return results.json();
     }).then(data => this.setState({
       rates: data['rates'],
       currencies: Object.keys(data['rates']).sort(),
@@ -68,8 +68,8 @@ class Currencies extends React.Component {
 
        return (
          <tr key={key}>
-             <td className="country-code">{countryCode}</td>
-             <td className="converted-rate">{convertedRate} </td>
+           <td className="country-code">{countryCode}</td>
+           <td className="converted-rate">{convertedRate} </td>
          </tr>
        )
      })
@@ -79,26 +79,31 @@ class Currencies extends React.Component {
        <div className="container text-center converter">
          <form className='ui mini form main'>
 
-          <h3>Convert from: {baseCurrency}</h3>
+           <h3>Convert from: {baseCurrency}</h3>
            <select
-               value={baseCurrency}
-               onChange={this.changeBaseCurrency}>{currencyChoice}
-               <option>{baseCurrency}</option>
+             value={baseCurrency}
+             onChange={this.changeBaseCurrency}
+           >
+             {currencyChoice}
+             <option>{baseCurrency}</option>
            </select>
 
            <h3>Convert to: {convertToCurrency}</h3>
            <select
-                value={convertToCurrency}
-                onChange={this.changeConvertToCurrency}>{currencyChoice}
+             value={convertToCurrency}
+             onChange={this.changeConvertToCurrency}
+           >
+             {currencyChoice}
            </select>
 
           <h3>Amount:</h3>
-            <input type='number'
-                   id='base-amount'
-                   defaultValue={baseAmount}
-                   className="amount-box"
-                   onChange={this.changeBaseAmount}>
-           </input>
+          <input
+            type='number'
+            id='base-amount'
+            defaultValue={baseAmount}
+            className="amount-box"
+            onChange={this.changeBaseAmount}
+          />
           <h3>{baseAmount} {baseCurrency} is equal to {result} {convertToCurrency}</h3>
         </form>
         <hr />
@@ -106,14 +111,14 @@ class Currencies extends React.Component {
         <h3 className="currency-list">Exchange Rates Table</h3>
           <table className="table table-striped table-custom">
             <thead>
-               <tr>
-                 <th className="country-code">Country</th>
-                 <th className="converted-rate">{baseAmount}.00 {baseCurrency}</th>
-               </tr>
-              </thead>
-               <tbody>{tableRows}</tbody>
+              <tr>
+                <th className="country-code">Country</th>
+                <th className="converted-rate">{baseAmount}.00 {baseCurrency}</th>
+              </tr>
+            </thead>
+            <tbody>{tableRows}</tbody>
           </table>
-         </div>
+        </div>
      );
    }
  }
