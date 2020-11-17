@@ -23,7 +23,7 @@ class Currencies extends React.Component {
    this.callAPI(this.state.baseCurrency)
   }
 
- callAPI(base) {
+  callAPI(base) {
     const api = `https://alt-exchange-rate.herokuapp.com/latest?base=${base}`;
 
     fetch(api)
@@ -49,47 +49,45 @@ class Currencies extends React.Component {
   }
 
   getConvertedCurrency(baseAmount,convertToCurrency,rates) {
-      return Number.parseFloat(baseAmount * rates[convertToCurrency]).toFixed(3);
+      return Number.parseFloat(baseAmount * rates[convertToCurrency]).toFixed(6);
   }
 
   render() {
+    const {currencies,rates,baseCurrency,baseAmount,convertToCurrency} = this.state;
 
-     const {currencies,rates,baseCurrency,baseAmount,convertToCurrency} = this.state;
-
-     const currencyChoice = currencies.map(currency =>
+    const currencyChoice = currencies.map(currency =>
        <option key={currency} value={currency}> {currency} </option>
      );
 
-     const result = this.getConvertedCurrency(baseAmount, convertToCurrency, rates);
+    const result = this.getConvertedCurrency(baseAmount, convertToCurrency, rates);
 
-     const tableRows = Object.keys(rates).map(function(key) {
-       const convertedRate = (Number.parseFloat(rates[key]) * baseAmount).toFixed(3);
-       const countryCode = key;
+    const tableRows = Object.keys(rates).map(function(key) {
+      const convertedRate = (Number.parseFloat(rates[key]) * baseAmount).toFixed(6);
+      const countryCode = key;
 
-       return (
-         <tr key={key}>
-             <td className="country-code">{countryCode}</td>
-             <td className="converted-rate">{convertedRate} </td>
-         </tr>
+      return(
+        <tr key={key}>
+          <td className="country-code">{countryCode}</td>
+          <td className="converted-rate">{convertedRate} </td>
+        </tr>
        )
      })
 
      return(
-
        <div className="container text-center converter">
          <form className='ui mini form main'>
 
           <h3>Convert from: {baseCurrency}</h3>
            <select
-               value={baseCurrency}
-               onChange={this.changeBaseCurrency}>{currencyChoice}
+              value={baseCurrency}
+              onChange={this.changeBaseCurrency}>{currencyChoice}
                <option>{baseCurrency}</option>
            </select>
 
            <h3>Convert to: {convertToCurrency}</h3>
            <select
-                value={convertToCurrency}
-                onChange={this.changeConvertToCurrency}>{currencyChoice}
+              value={convertToCurrency}
+              onChange={this.changeConvertToCurrency}>{currencyChoice}
            </select>
 
           <h3>Amount:</h3>
