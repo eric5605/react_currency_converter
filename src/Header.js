@@ -8,9 +8,11 @@ const Header = () => {
   return (
     <React.Fragment>
       <nav className="navbar navbar-light bg-light">
-         <Link to="/chart/"><span className="navbar-brand mb-0 h1">Chart</span></Link>
+         <Link to="/chart/"><span className="navbar-brand h1">Chart</span></Link>
 
-         <Link to="/currencies/"><span className="navbar-brand mb-0 h1">Currencies Table</span></Link>
+         <Link to="/"><span className="navbar-brand  h1">Home</span></Link>
+
+         <Link to="/currencies/"><span className="navbar-brand  h1">Currencies Table</span></Link>
      </nav>
     </React.Fragment>
   )

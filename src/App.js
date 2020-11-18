@@ -7,6 +7,9 @@ import Currencies from './Currencies';
 import Chart from './Chart';
 import Footer from './Footer'
 
+const NotFound = () => {
+  return <h2>404 Not Found</h2>;
+}
 
 const App = () => {
   return (
@@ -15,7 +18,8 @@ const App = () => {
         <Switch>
           <Route path="/" exact component={Currencies} />
           <Route path="/chart/" component={Chart} />
-         <Route path="/currencies/" component={Currencies} />
+          <Route path="/currencies/" component={Currencies} />
+          <Route component={NotFound} />
        </Switch>
      <Footer />
     </Router>
