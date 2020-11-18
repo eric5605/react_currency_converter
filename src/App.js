@@ -1,26 +1,24 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
+import './App.css';
+import Header from './Header'
 import Currencies from './Currencies';
-import Header from './Header';
-import Footer from './Footer';
+import Chart from './Chart';
+import Footer from './Footer'
 
-const NotFound = () => {
-  return <h2>404 Not Found</h2>;
-}
 
 const App = () => {
   return (
-    <React.Fragment>
+    <Router>
       <Header />
-        <Router>
-          <Switch>
-            <Route path="/" exact component={Currencies} />
-            <Route component={NotFound} />
-          </Switch>
-        </Router>
-      <Footer />
-    </React.Fragment>
+        <Switch>
+          <Route path="/" exact component={Currencies} />
+          <Route path="/chart/" component={Chart} />
+         <Route path="/currencies/" component={Currencies} />
+       </Switch>
+     <Footer />
+    </Router>
   );
 }
 
