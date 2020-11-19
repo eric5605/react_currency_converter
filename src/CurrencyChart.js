@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Chart = () => {
+const CurrencyChart = () => {
   return (
     <div>
       <h3>Currency Chart Goes Here</h3>
@@ -9,4 +9,4 @@ const Chart = () => {
 }
 
 
-export default Chart
+export default CurrencyChart

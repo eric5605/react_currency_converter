@@ -4,8 +4,9 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
 import Header from './Header'
 import Currencies from './Currencies';
-import Chart from './Chart';
 import Footer from './Footer'
+import CurrencyChart from './CurrencyChart'
+import Chart from 'chart.js'
 
 const NotFound = () => {
   return <h2>404 Not Found</h2>;
@@ -17,8 +18,8 @@ const App = () => {
       <Header />
         <Switch>
           <Route path="/" exact component={Currencies} />
-          <Route path="/chart/" component={Chart} />
-          <Route path="/currencies/" component={Currencies} />
+          <Route path="/currencychart/" component={CurrencyChart} />
+
           <Route component={NotFound} />
        </Switch>
      <Footer />
@@ -27,3 +28,7 @@ const App = () => {
 }
 
 export default App;
+
+
+  // <Route path="/chart/" component={Chart} />
+  // <Route path="/currencies/" component={Currencies} />

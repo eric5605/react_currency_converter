@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import Chart from 'chart.js';
 
 class Currencies extends React.Component {
   constructor() {
@@ -26,6 +27,8 @@ class Currencies extends React.Component {
   callAPI(base) {
     const api = `https://alt-exchange-rate.herokuapp.com/latest?base=${base}`;
 
+    const api2 = 'https://alt-exchange-rate.herokuapp.com/history?start_at=2019-01-01&end_at=2019-01-30&base=USD&symbols=JPY'
+
     fetch(api)
      .then(results => {
         return results.json();
@@ -33,6 +36,7 @@ class Currencies extends React.Component {
       rates: data['rates'],
       currencies: Object.keys(data['rates']).sort(),
     }));
+    console.log(this.state.rates);
  }
 
  changeBaseCurrency(e) {
@@ -74,6 +78,7 @@ class Currencies extends React.Component {
      })
 
      return(
+
        <div className="container text-center converter">
          <form className='ui mini form main'>
 
@@ -111,6 +116,7 @@ class Currencies extends React.Component {
               </thead>
                <tbody>{tableRows}</tbody>
           </table>
+
          </div>
      );
    }
