@@ -27,8 +27,6 @@ class Currencies extends React.Component {
   callAPI(base) {
     const api = `https://alt-exchange-rate.herokuapp.com/latest?base=${base}`;
 
-    const api2 = 'https://alt-exchange-rate.herokuapp.com/history?start_at=2019-01-01&end_at=2019-01-30&base=USD&symbols=JPY'
-
     fetch(api)
      .then(results => {
         return results.json();
@@ -37,6 +35,8 @@ class Currencies extends React.Component {
       currencies: Object.keys(data['rates']).sort(),
     }));
     console.log(this.state.rates);
+    console.log(this.state.currencies)
+    console.log(api);
  }
 
  changeBaseCurrency(e) {
@@ -49,11 +49,11 @@ class Currencies extends React.Component {
   }
 
   changeBaseAmount(e) {
-   this.setState({ baseAmount: e.target.value });
+    this.setState({ baseAmount: e.target.value });
   }
 
   getConvertedCurrency(baseAmount,convertToCurrency,rates) {
-      return Number.parseFloat(baseAmount * rates[convertToCurrency]).toFixed(6);
+    return Number.parseFloat(baseAmount * rates[convertToCurrency]).toFixed(6);
   }
 
   render() {

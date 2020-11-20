@@ -6,7 +6,7 @@ import Header from './Header'
 import Currencies from './Currencies';
 import Footer from './Footer'
 import CurrencyChart from './CurrencyChart'
-import Chart from 'chart.js'
+// import Chart from 'chart.js'
 
 const NotFound = () => {
   return <h2>404 Not Found</h2>;

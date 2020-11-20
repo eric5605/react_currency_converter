@@ -3,7 +3,6 @@ import './App.css'
 
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-
 const Header = () => {
   return (
     <React.Fragment>
