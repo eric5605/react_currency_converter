@@ -1,20 +1,4 @@
-.chart-wrapper {
-  display: inline-block;
-}
-
-.main.chart-wrapper {
-  width: 76%;
-  height: 400px;
-}
-
-/* .sub .chart-wrapper {
-  width: 129%;
-  height: 300px;
-} */
-
-/* Simple responsivenss example */
- /* @media (max-width: 700px) {
-  .main.chart-wrapper {
-    width: 96%;
-  }
+ /* .wrapper {
+  max-width: 100px;
+  margin: 0 auto;
 } */

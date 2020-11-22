@@ -34,9 +34,9 @@ class Currencies extends React.Component {
       rates: data['rates'],
       currencies: Object.keys(data['rates']).sort(),
     }));
-    console.log(this.state.rates);
-    console.log(this.state.currencies)
-    console.log(api);
+    // console.log(this.state.rates);
+    // console.log(this.state.currencies)
+    // console.log(api);
  }
 
  changeBaseCurrency(e) {
