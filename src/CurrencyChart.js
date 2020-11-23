@@ -2,15 +2,12 @@ import React, { useEffect, useState } from "react";
 import Chart from "chart.js";
 import './index.css'
 
-
-
-// -----------------------------------------------
-const exchangeRates = [];
-var dates = [];
-
-function GetData() {
+export default function CurrencyChart() {
+  // GetData();
   const api2 = 'https://alt-exchange-rate.herokuapp.com/history?start_at=2019-01-01&end_at=2019-01-30&base=USD&symbols=JPY'
-  const [rates, setRates] = useState([]);
+  // const [rates, setRates] = useState([]);
+  const [exchangeData, setExchangeData] = useState([]);
+  const [dates, setDates] = useState([]);
 
     useEffect(() => {
       loadData();
@@ -19,25 +16,20 @@ function GetData() {
     const loadData = async () => {
       const response = await fetch(api2);
       const data = await response.json();
-      setRates(data.rates);
+      // setRates(data.rates);
+      setDates(Object.keys(data.rates))
+      setExchangeData(data.rates);
     }
+    const pastPrices = (Object.values(exchangeData))
+    const historicalRates = [];
 
-    // create array with historical exchange rates
-    const pastPrices = (Object.values(rates))
-    dates = (Object.keys(rates))
     for (let i = 0; i < pastPrices.length; i++) {
       const element = pastPrices[i];
       for (const property in element) {
-        exchangeRates.push(element[property])
+        historicalRates.push(element[property])
        }
      }
-    // console.log(exchangeRates)
-    // dates = (Object.keys(rates))
-    // console.log(rates)
-}
-
-export default function CurrencyChart() {
-  GetData();
+    console.log(historicalRates)
 
   useEffect(() => {
     const ctx = document.getElementById("myChart");
@@ -48,7 +40,7 @@ export default function CurrencyChart() {
         datasets: [
           {
             label: "Currency Exchange Chart",
-            data: exchangeRates,
+            data: historicalRates,
             backgroundColor: "rgba(255, 99, 132, 0.2)",
             borderColor: "rgba(255, 99, 132, 1)",
             borderWidth: 1,
