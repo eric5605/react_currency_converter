@@ -154,6 +154,8 @@ class CurrencyChart extends React.Component {
   }
 
   render() {
+
+    // for chart historical prices
     const { dates, historicalData } = this.state;
 
     if (!historicalData) {
