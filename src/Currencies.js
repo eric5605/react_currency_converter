@@ -57,6 +57,9 @@ class Currencies extends React.Component {
   }
 
   render() {
+
+
+
     const {currencies,rates,baseCurrency,baseAmount,convertToCurrency} = this.state;
 
     const currencyChoice = currencies.map(currency =>

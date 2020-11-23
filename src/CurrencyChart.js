@@ -3,9 +3,9 @@ import Chart from "chart.js";
 import './index.css'
 
 export default function CurrencyChart() {
-  // GetData();
+
   const api2 = 'https://alt-exchange-rate.herokuapp.com/history?start_at=2019-01-01&end_at=2019-01-30&base=USD&symbols=JPY'
-  // const [rates, setRates] = useState([]);
+
   const [exchangeData, setExchangeData] = useState([]);
   const [dates, setDates] = useState([]);
 
@@ -16,7 +16,7 @@ export default function CurrencyChart() {
     const loadData = async () => {
       const response = await fetch(api2);
       const data = await response.json();
-      // setRates(data.rates);
+
       setDates(Object.keys(data.rates))
       setExchangeData(data.rates);
     }
@@ -58,5 +58,3 @@ export default function CurrencyChart() {
      </div>
   );
 }
-
-// export default CurrencyChart
