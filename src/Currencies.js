@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Chart from 'chart.js';
+import LineChart from './CurrencyChart'
 
 class Currencies extends React.Component {
   constructor() {
@@ -11,6 +12,9 @@ class Currencies extends React.Component {
       baseAmount: 1,
       rates: [],
       currencies: [],
+      historicalData: [],
+      dates: [],
+      historicExchangeRates: [],
     };
 
     this.changeBaseCurrency = this.changeBaseCurrency.bind(this);
@@ -27,6 +31,8 @@ class Currencies extends React.Component {
   callAPI(base) {
     const api = `https://alt-exchange-rate.herokuapp.com/latest?base=${base}`;
 
+    const api2 = 'https://alt-exchange-rate.herokuapp.com/history?start_at=2019-01-01&end_at=2019-01-30&base=USD&symbols=JPY'
+
     fetch(api)
      .then(results => {
         return results.json();
@@ -34,9 +40,15 @@ class Currencies extends React.Component {
       rates: data['rates'],
       currencies: Object.keys(data['rates']).sort(),
     }));
-    // console.log(this.state.rates);
-    // console.log(this.state.currencies)
-    // console.log(api);
+
+    fetch(api2)
+     .then(results => {
+        return results.json();
+    }).then(data => this.setState({
+      historicalData: data['rates'],
+      dates: Object.keys(data['rates']),
+    }));
+
  }
 
  changeBaseCurrency(e) {
@@ -57,7 +69,8 @@ class Currencies extends React.Component {
   }
 
   render() {
-    const {currencies,rates,baseCurrency,baseAmount,convertToCurrency} = this.state;
+    // Echange Box
+    const {currencies,rates,baseCurrency,baseAmount,convertToCurrency, dates, historicalData, historicExchangeRates} = this.state;
 
     const currencyChoice = currencies.map(currency =>
        <option key={currency} value={currency}> {currency} </option>
@@ -65,6 +78,8 @@ class Currencies extends React.Component {
 
     const result = this.getConvertedCurrency(baseAmount, convertToCurrency, rates);
 
+
+    // Exchange Table
     const tableRows = Object.keys(rates).map(function(key) {
       const convertedRate = (Number.parseFloat(rates[key]) * baseAmount).toFixed(6);
       const countryCode = key;
@@ -77,7 +92,22 @@ class Currencies extends React.Component {
        )
      })
 
+     //  Exchange chart
+    if (!historicalData) {
+      return null;
+    }
+    const pastPrices = (Object.values(historicalData))
+      for (let i = 0; i < pastPrices.length; i++) {
+        const element = pastPrices[i];
+        for (const property in element) {
+        historicExchangeRates.push(element[property])
+
+       }
+
+     }
+
      return(
+
        <div className="container text-center converter">
          <form className='ui mini form main'>
 
@@ -105,7 +135,7 @@ class Currencies extends React.Component {
         </form>
         <hr />
 
-        <h3 className="currency-list">Exchange Rates Table</h3>
+        <h3 className="currency-list currency-table">Exchange Rates Table</h3>
           <table className="table table-striped table-custom">
             <thead>
                <tr>
@@ -115,7 +145,17 @@ class Currencies extends React.Component {
               </thead>
                <tbody>{tableRows}</tbody>
           </table>
+
+          <div className="CurrencyChart text-center py-5">
+             <div className="main chart-wrapper">
+              <LineChart
+              dates={this.state.dates}
+
+            />
+          </div>
          </div>
+      </div>
+
      );
    }
  }

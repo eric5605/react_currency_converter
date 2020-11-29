@@ -2,83 +2,21 @@ import React, { useEffect, useState } from "react";
 import Chart from "chart.js";
 import './index.css'
 
-var historicalRates = [109.0462402387, 107.6929855481, 108.0417434009, 108.2568807339, 108.7937062937, 108.8607594937, 108.1057650629, 108.3065984566, 108.0753466469, 108.5609243697, 108.7979629467, 108.7662337662, 109.4369408876, 109.663791586, 109.4327990136, 109.7035277558, 109.7169561767, 109.9242023621, 109.4237169382, 109.4641919103, 109.4408959664];
 
-var dates = ["2019-01-02", "2019-01-03", "2019-01-04", "2019-01-07", "2019-01-08", "2019-01-09", "2019-01-10", "2019-01-11", "2019-01-14", "2019-01-15", "2019-01-16", "2019-01-17", "2019-01-18", "2019-01-21", "2019-01-22", "2019-01-23", "2019-01-24", "2019-01-25", "2019-01-28", "2019-01-29", "2019-01-30"]
+var historicalRates = [709.0462402387, 707.6929855487, 708.0477434009, 708.2568807339, 708.7937062937, 708.8607594937, 708.7057650629, 708.3065984566, 708.0753466469, 708.5609243697, 708.7979629467, 708.7662337662, 709.4369408876, 709.663797586, 709.4327990736, 709.7035277558, 709.7769567767, 709.9242023627, 709.4237769382, 709.4647979703, 709.4408959664];
 
+var dates2 = ["1972-01-02", "1972-01-03", "1972-01-04", "1972-01-07", "1972-01-08", "1972-01-09", "1972-01-10", "1972-01-11", "1972-01-14", "1972-01-15", "1972-01-16", "1972-01-17", "1972-01-18", "1972-01-21", "1972-01-22", "1972-01-23", "1972-01-24", "1972-01-25", "1972-01-28", "1972-01-29", "1972-01-30"]
 
-
-// CurrencyChart gets the data json api
-class CurrencyChartData extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      historicalData: [],
-      dates: [],
-      exchangeRates: [],
-    };
-  }
-
-  componentDidMount() {
-    const api2 = 'https://alt-exchange-rate.herokuapp.com/history?start_at=2019-01-01&end_at=2019-01-30&base=USD&symbols=JPY'
-
-    fetch(api2)
-     .then(results => {
-        return results.json();
-    }).then(data => this.setState({
-      historicalData: data['rates'],
-      dates: Object.keys(data['rates']),
-    }));
-
-  }
-
-  render() {
-    const { dates, historicalData, exchangeRates } = this.state;
-
-    if (!historicalData) {
-      return null;
-    }
-// console.log(getData())
-  // create array with historical exchange rates
-    const pastPrices = (Object.values(historicalData))
-    // const exchangeRates = []
-    for (let i = 0; i < pastPrices.length; i++) {
-      const element = pastPrices[i];
-      for (const property in element) {
-        exchangeRates.push(element[property])
-
-       }
-       // console.log(exchangeRates)
-       // console.log(dates)
-     }
-
-    return (
-
-      <div className="CurrencyChart text-center py-5">
-        <div className="main chart-wrapper">
-          <LineChart
-          data={this.state.data[0].data}
-          testing={this.state.dates}
-          title={this.state.data[0].title}
-          color="#3E517A"
-
-          />
-        </div>
-      </div>
-    );
-  }
-}
-// builds chart 
 const LineChart = (props) => {
-
+    const { dates } = props;
+    console.log(dates)
   useEffect(() => {
 
     const ctx = document.getElementById("myChart");
     new Chart(ctx, {
       type: "line",
       data: {
-        labels: dates,
+        labels: dates2,
         datasets: [
           {
             label: "Currency Exchange Chart",
