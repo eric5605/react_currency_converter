@@ -5,10 +5,28 @@ import './index.css'
 var historicalRates = [109.0462402387, 107.6929855481, 108.0417434009, 108.2568807339, 108.7937062937, 108.8607594937, 108.1057650629, 108.3065984566, 108.0753466469, 108.5609243697, 108.7979629467, 108.7662337662, 109.4369408876, 109.663791586, 109.4327990136, 109.7035277558, 109.7169561767, 109.9242023621, 109.4237169382, 109.4641919103, 109.4408959664];
 
 var dates = ["2019-01-02", "2019-01-03", "2019-01-04", "2019-01-07", "2019-01-08", "2019-01-09", "2019-01-10", "2019-01-11", "2019-01-14", "2019-01-15", "2019-01-16", "2019-01-17", "2019-01-18", "2019-01-21", "2019-01-22", "2019-01-23", "2019-01-24", "2019-01-25", "2019-01-28", "2019-01-29", "2019-01-30"]
+//
+const api2 = 'https://alt-exchange-rate.herokuapp.com/history?start_at=2019-01-01&end_at=2019-01-30&base=USD&symbols=CAD'
+// -----------------------------------------------
+//
+// function GetData() {
+// const [rates, setRates] = useState([]);
+//
+//     useEffect(() => {
+//       loadData();
+//     }, []);
+//
+//
+//     const loadData = async () => {
+//       const response = await fetch(api2);
+//       const data = await response.json();
+//       setRates(data.rates);
+//       // console.log(Object.keys(data));
+//     }
+// }
 
 
-
-// CurrencyChart gets the data json api
+// CurrencyChart
 class CurrencyChartData extends React.Component {
   constructor(props) {
     super(props);
@@ -19,6 +37,7 @@ class CurrencyChartData extends React.Component {
       exchangeRates: [],
     };
   }
+
 
   componentDidMount() {
     const api2 = 'https://alt-exchange-rate.herokuapp.com/history?start_at=2019-01-01&end_at=2019-01-30&base=USD&symbols=JPY'
@@ -59,7 +78,6 @@ class CurrencyChartData extends React.Component {
         <div className="main chart-wrapper">
           <LineChart
           data={this.state.data[0].data}
-          testing={this.state.dates}
           title={this.state.data[0].title}
           color="#3E517A"
 
@@ -69,11 +87,11 @@ class CurrencyChartData extends React.Component {
     );
   }
 }
-// builds chart 
-const LineChart = (props) => {
+
+export default function LineChart() {
+  // GetData();
 
   useEffect(() => {
-
     const ctx = document.getElementById("myChart");
     new Chart(ctx, {
       type: "line",
@@ -101,4 +119,4 @@ const LineChart = (props) => {
   );
 }
 
-export default LineChart
+// export default CurrencyChart

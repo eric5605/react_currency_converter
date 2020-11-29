@@ -70,7 +70,7 @@ class LineChart extends React.Component {
     super(props);
     this.canvasRef = React.createRef();
     this.state = {
-      historicalData: {},
+      historicalData: [],
       dates: [],
     }
   }
@@ -127,7 +127,7 @@ class LineChart extends React.Component {
 }
 
   // ---------------------------------------
-  
+
 // CurrencyChart
 class CurrencyChart extends React.Component {
   constructor(props) {
@@ -151,11 +151,6 @@ class CurrencyChart extends React.Component {
       dates: Object.keys(data['rates']),
     }));
 
-    // window.setInterval(() => {
-    //   this.setState({
-    //     data: getData()
-    //   })
-    // }, 5000)
   }
 
   render() {
