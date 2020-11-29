@@ -13,7 +13,7 @@ class Currencies extends React.Component {
       rates: [],
       currencies: [],
       historicalData: [],
-      dates: [],
+      histroicDates: [],
       historicExchangeRates: [],
     };
 
@@ -46,7 +46,7 @@ class Currencies extends React.Component {
         return results.json();
     }).then(data => this.setState({
       historicalData: data['rates'],
-      dates: Object.keys(data['rates']),
+      histroicDates: Object.keys(data['rates']),
     }));
 
  }
@@ -70,7 +70,7 @@ class Currencies extends React.Component {
 
   render() {
     // Echange Box
-    const {currencies,rates,baseCurrency,baseAmount,convertToCurrency, dates, historicalData, historicExchangeRates} = this.state;
+    const {currencies,rates,baseCurrency,baseAmount,convertToCurrency, histroicDates, historicalData, historicExchangeRates} = this.state;
 
     const currencyChoice = currencies.map(currency =>
        <option key={currency} value={currency}> {currency} </option>
@@ -149,8 +149,8 @@ class Currencies extends React.Component {
           <div className="CurrencyChart text-center py-5">
              <div className="main chart-wrapper">
               <LineChart
-              dates={this.state.dates}
-
+              historicDates={this.state.historicDates}
+              historicExchangeRates={this.state.historicExchangeRates}
             />
           </div>
          </div>
