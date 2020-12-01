@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Chart from "chart.js";
 import './index.css'
-// import Currencies from "./Currencies"
 
 const CurrencyChart = (props) => {
-  console.log(props.pastDates)
-  console.log(props.historicExchangeRates)
+  // console.log(props.pastDates)
+  // console.log(props.historicExchangeRates)
+  console.log(props.historicData)
 
   useEffect(() => {
     const ctx = document.getElementById("myChart");
@@ -15,11 +15,11 @@ const CurrencyChart = (props) => {
         labels: props.pastDates,
         datasets: [
           {
-            label: "Currency Exchange Chart",
+            label: `${props.baseCurrency}/${props.compareCurrency}`,
             data: props.historicExchangeRates,
             backgroundColor: "rgba(255, 99, 132, 0.2)",
             borderColor: "rgba(255, 99, 132, 1)",
-            borderWidth: 1,
+            borderWidth: 2,
             fill: false,
             lineTension: 0
           }
@@ -29,8 +29,8 @@ const CurrencyChart = (props) => {
   });
 
   return (
-     <div className="container py-5">
-       <canvas id="myChart" width="200" height="100" />
+     <div className="container-fluid mx-auto">
+       <canvas id="myChart"  width="300" height="200"/>
        <h2> {props.message} </h2>
      </div>
   );

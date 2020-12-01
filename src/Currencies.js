@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Chart from 'chart.js';
+// import Chart from 'chart.js';
 import CurrencyChart from './CurrencyChart'
 
 class Currencies extends React.Component {
@@ -28,10 +28,13 @@ class Currencies extends React.Component {
    this.callAPI(this.state.baseCurrency)
   }
 
-  callAPI(base) {
+  callAPI(base, currencyChoice = this.state.convertToCurrency) {
     const api = `https://alt-exchange-rate.herokuapp.com/latest?base=${base}`;
 
-    const api2 = 'https://alt-exchange-rate.herokuapp.com/history?start_at=2019-01-01&end_at=2019-01-30&base=USD&symbols=JPY'
+    const endDate = new Date().toISOString().split('T')[0];
+    const startDate = new Date((new Date()).getTime() - (30 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0];
+
+    const api2 = (`https://alt-exchange-rate.herokuapp.com/history?start_at=${startDate}&end_at=${endDate}&base=${base}&symbols=${currencyChoice}`)
 
     fetch(api)
      .then(results => {
@@ -69,7 +72,7 @@ class Currencies extends React.Component {
   }
 
   render() {
-    // Echange Box
+
     const {currencies,rates,baseCurrency,baseAmount,convertToCurrency, historicData, historicExchangeRates} = this.state;
 
     const currencyChoice = currencies.map(currency =>
@@ -92,17 +95,17 @@ class Currencies extends React.Component {
        )
      })
 
-     //  Exchange chart data
-    if (!historicData) {
-      return null;
-    }
-    const pastPrices = (Object.values(historicData))
-      for (let i = 0; i < pastPrices.length; i++) {
-        const element = pastPrices[i];
-        for (const property in element) {
-        historicExchangeRates.push(element[property])
+      // Exchange chart data
+       if (!historicData) {
+         return null;
        }
-     }
+       const pastPrices = (Object.values(historicData))
+         for (let i = 0; i < pastPrices.length; i++) {
+           const element = pastPrices[i];
+           for (const property in element) {
+           historicExchangeRates.push(element[property])
+          }
+        }
 
      return(
 
@@ -150,7 +153,9 @@ class Currencies extends React.Component {
                message="Data from parent component"
                pastDates={this.state.pastDates}
                historicExchangeRates={this.state.historicExchangeRates}
-
+               baseCurrency={baseCurrency}
+               compareCurrency={convertToCurrency}
+               historicData={historicData}
             />
            </div>
          </div>
@@ -161,11 +166,3 @@ class Currencies extends React.Component {
  }
 
 export default Currencies
-
-// <div className="main chart-wrapper">
-//  <LineChart
-//  message="Hello there"
-//  pastDates={this.state.pastDates}
-//  historicExchangeRates={{baseCurrency}}
-// />
-// </div>
