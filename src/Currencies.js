@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Chart from 'chart.js';
-import LineChart from './CurrencyChart'
+import CurrencyChart from './CurrencyChart'
 
 class Currencies extends React.Component {
   constructor() {
@@ -12,8 +12,8 @@ class Currencies extends React.Component {
       baseAmount: 1,
       rates: [],
       currencies: [],
-      historicalData: [],
-      histroicDates: [],
+      historicData: [],
+      pastDates: [],
       historicExchangeRates: [],
     };
 
@@ -45,8 +45,8 @@ class Currencies extends React.Component {
      .then(results => {
         return results.json();
     }).then(data => this.setState({
-      historicalData: data['rates'],
-      histroicDates: Object.keys(data['rates']),
+      historicData: data['rates'],
+      pastDates: Object.keys(data['rates']),
     }));
 
  }
@@ -70,7 +70,7 @@ class Currencies extends React.Component {
 
   render() {
     // Echange Box
-    const {currencies,rates,baseCurrency,baseAmount,convertToCurrency, histroicDates, historicalData, historicExchangeRates} = this.state;
+    const {currencies,rates,baseCurrency,baseAmount,convertToCurrency, historicData, historicExchangeRates} = this.state;
 
     const currencyChoice = currencies.map(currency =>
        <option key={currency} value={currency}> {currency} </option>
@@ -92,18 +92,16 @@ class Currencies extends React.Component {
        )
      })
 
-     //  Exchange chart
-    if (!historicalData) {
+     //  Exchange chart data
+    if (!historicData) {
       return null;
     }
-    const pastPrices = (Object.values(historicalData))
+    const pastPrices = (Object.values(historicData))
       for (let i = 0; i < pastPrices.length; i++) {
         const element = pastPrices[i];
         for (const property in element) {
         historicExchangeRates.push(element[property])
-
        }
-
      }
 
      return(
@@ -147,12 +145,14 @@ class Currencies extends React.Component {
           </table>
 
           <div className="CurrencyChart text-center py-5">
-             <div className="main chart-wrapper">
-              <LineChart
-              historicDates={this.state.historicDates}
-              historicExchangeRates={this.state.historicExchangeRates}
+          <div>
+             <CurrencyChart
+               message="Data from parent component"
+               pastDates={this.state.pastDates}
+               historicExchangeRates={this.state.historicExchangeRates}
+
             />
-          </div>
+           </div>
          </div>
       </div>
 
@@ -161,3 +161,11 @@ class Currencies extends React.Component {
  }
 
 export default Currencies
+
+// <div className="main chart-wrapper">
+//  <LineChart
+//  message="Hello there"
+//  pastDates={this.state.pastDates}
+//  historicExchangeRates={{baseCurrency}}
+// />
+// </div>

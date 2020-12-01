@@ -28,7 +28,3 @@ const App = () => {
 }
 
 export default App;
-
-
-  // <Route path="/chart/" component={Chart} />
-  // <Route path="/currencies/" component={Currencies} />
