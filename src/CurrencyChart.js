@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import Chart from "chart.js";
 import './index.css'
 
+
 const CurrencyChart = (props) => {
-  // console.log(props.pastDates)
-  // console.log(props.historicExchangeRates)
-  console.log(props.historicData)
+  console.log('bob')
+  console.log(props.pastDates)
+  console.log(props.historicExchangeRates)
+
+
 
   useEffect(() => {
     const ctx = document.getElementById("myChart");
