@@ -6,8 +6,8 @@ class Currencies extends React.Component {
   constructor() {
     super();
     this.state = {
-      baseCurrency:'USD',
-      convertToCurrency:'JPY',
+      baseCurrency:'NZD',
+      convertToCurrency:'BRL',
       baseAmount: 1,
       rates: [],
       currencies: [],
@@ -21,19 +21,34 @@ class Currencies extends React.Component {
     this.changeBaseAmount = this.changeBaseAmount.bind(this);
     this.getConvertedCurrency = this.getConvertedCurrency.bind(this);
     this.callAPI = this.callAPI.bind(this);
+    this.callHistoricAPI = this.callHistoricAPI.bind(this);
   }
 
   componentDidMount() {
-   this.callAPI(this.state.baseCurrency)
+   this.callAPI(this.state.baseCurrency);
+
+   // this.callHistoricAPI(this.state.baseCurrency, this.state.convertToCurrency)
   }
 
-  callAPI(base, convertToCurrency = this.state.convertToCurrency) {
-    const api = `https://alt-exchange-rate.herokuapp.com/latest?base=${base}`;
+  callHistoricAPI(base= this.state.baseCurrency, convertToCurrency= this.state.convertToCurrency) {
 
     const endDate = new Date().toISOString().split('T')[0];
     const startDate = new Date((new Date()).getTime() - (30 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0];
 
     const api2 = (`https://alt-exchange-rate.herokuapp.com/history?start_at=${startDate}&end_at=${endDate}&base=${base}&symbols=${convertToCurrency}`)
+
+      fetch(api2)
+       .then(results => {
+          return results.json();
+      }).then(data => this.setState({
+        historicData: data['rates'],
+        pastDates: Object.keys(data['rates']),
+      }));
+  }
+
+  callAPI(base) {
+
+    const api = `https://alt-exchange-rate.herokuapp.com/latest?base=${base}`;
 
     fetch(api)
      .then(results => {
@@ -43,22 +58,23 @@ class Currencies extends React.Component {
       currencies: Object.keys(data['rates']).sort(),
     }));
 
-    fetch(api2)
-     .then(results => {
-        return results.json();
-    }).then(data => this.setState({
-      historicData: data['rates'],
-      pastDates: Object.keys(data['rates']),
-    }));
+    this.callHistoricAPI(this.state.baseCurrency, this.state.convertToCurrency)
+
  }
 
  changeBaseCurrency(e) {
    this.setState({ baseCurrency: e.target.value});
    this.callAPI(e.target.value);
+
+   this.callHistoricAPI(e.target.value);
+   console.log(e.target.value)
  }
 
   changeConvertToCurrency(e) {
     this.setState({ convertToCurrency: e.target.value });
+
+    this.callHistoricAPI(e.target.value)
+    console.log(e.target.value)
   }
 
   changeBaseAmount(e) {
