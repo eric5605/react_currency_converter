@@ -6,7 +6,6 @@ import './index.css'
 const CurrencyChart = (props) => {
   // console.log('bob')
   // console.log(props)
-  // console.log(props.historicExchangeRates)
   // console.log(props.pastdates)
 
 

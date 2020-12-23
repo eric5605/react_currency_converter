@@ -27,7 +27,7 @@ class Currencies extends React.Component {
   componentDidMount() {
    this.callAPI(this.state.baseCurrency);
 
-   // this.callHistoricAPI(this.state.baseCurrency, this.state.convertToCurrency)
+   this.callHistoricAPI(this.state.baseCurrency, this.state.convertToCurrency)
   }
 
   callHistoricAPI(base= this.state.baseCurrency, convertToCurrency= this.state.convertToCurrency) {
@@ -37,17 +37,34 @@ class Currencies extends React.Component {
 
     const api2 = (`https://alt-exchange-rate.herokuapp.com/history?start_at=${startDate}&end_at=${endDate}&base=${base}&symbols=${convertToCurrency}`)
 
+    if (!this.state.historicData) {
+      return null
+    }
+    const pastPrices = (Object.values(this.state.historicData))
+    const ratesArray = []
+
+      for (let i = 0; i < pastPrices.length; i++) {
+        const element = pastPrices[i];
+        for (const property in element) {
+        ratesArray.push(element[property])
+       }
+       console.log(ratesArray)
+       console.log(api2)
+     }
+
       fetch(api2)
        .then(results => {
           return results.json();
       }).then(data => this.setState({
         historicData: data['rates'],
         pastDates: Object.keys(data['rates']),
+        historicExchangeRates: ratesArray,
       }));
+
   }
 
   callAPI(base) {
-
+// this.callHistoricAPI(this.state.baseCurrency, this.state.convertToCurrency)
     const api = `https://alt-exchange-rate.herokuapp.com/latest?base=${base}`;
 
     fetch(api)
@@ -57,9 +74,6 @@ class Currencies extends React.Component {
       rates: data['rates'],
       currencies: Object.keys(data['rates']).sort(),
     }));
-
-    this.callHistoricAPI(this.state.baseCurrency, this.state.convertToCurrency)
-
  }
 
  changeBaseCurrency(e) {
@@ -95,16 +109,18 @@ class Currencies extends React.Component {
 
     const result = this.getConvertedCurrency(baseAmount, convertToCurrency, rates);
 
-    if (!historicData) {
-      return null
-    }
-    const pastPrices = (Object.values(historicData))
-      for (let i = 0; i < pastPrices.length; i++) {
-        const element = pastPrices[i];
-        for (const property in element) {
-        historicExchangeRates.push(element[property])
-       }
-     }
+    // if (!historicData) {
+    //   return null
+    // }
+    // const pastPrices = (Object.values(historicData))
+    // const ratesArray = []
+    //   for (let i = 0; i < pastPrices.length; i++) {
+    //     const element = pastPrices[i];
+    //     for (const property in element) {
+    //     ratesArray.push(element[property])
+    //    }
+    //    console.log(ratesArray)
+    //  }
 
 
     // Exchange Table
