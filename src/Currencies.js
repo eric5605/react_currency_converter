@@ -26,8 +26,7 @@ class Currencies extends React.Component {
 
   componentDidMount() {
    this.callAPI(this.state.baseCurrency);
-
-   this.callHistoricAPI(this.state.baseCurrency, this.state.convertToCurrency)
+   this.callHistoricAPI()
   }
 
   callHistoricAPI(base= this.state.baseCurrency, convertToCurrency= this.state.convertToCurrency) {
@@ -37,20 +36,12 @@ class Currencies extends React.Component {
 
     const api2 = (`https://alt-exchange-rate.herokuapp.com/history?start_at=${startDate}&end_at=${endDate}&base=${base}&symbols=${convertToCurrency}`)
 
-    if (!this.state.historicData) {
-      return null
-    }
-    const pastPrices = (Object.values(this.state.historicData))
-    const ratesArray = []
+    // if (!this.state.historicData) {
+    //   return null
+    // }
+    let ratesArray = []
+    Object.values(this.state.historicData).map(price => ratesArray = ratesArray.concat(Number(Object.values(price))))
 
-      for (let i = 0; i < pastPrices.length; i++) {
-        const element = pastPrices[i];
-        for (const property in element) {
-        ratesArray.push(element[property])
-       }
-       console.log(ratesArray)
-       console.log(api2)
-     }
 
       fetch(api2)
        .then(results => {
@@ -59,12 +50,12 @@ class Currencies extends React.Component {
         historicData: data['rates'],
         pastDates: Object.keys(data['rates']),
         historicExchangeRates: ratesArray,
+        // historicExchangeRates: (Object.values(this.state.historicData).map(price => ratesArray = ratesArray.concat(Number(Object.values(price))))
       }));
 
   }
 
   callAPI(base) {
-// this.callHistoricAPI(this.state.baseCurrency, this.state.convertToCurrency)
     const api = `https://alt-exchange-rate.herokuapp.com/latest?base=${base}`;
 
     fetch(api)
@@ -100,28 +91,13 @@ class Currencies extends React.Component {
   }
 
   render() {
-
-    const {currencies,rates,baseCurrency,baseAmount,convertToCurrency, historicData, historicExchangeRates} = this.state;
+    const {currencies,rates,baseCurrency,baseAmount,convertToCurrency, historicData} = this.state;
 
     const currencyChoice = currencies.map(currency =>
        <option key={currency} value={currency}> {currency} </option>
      );
 
     const result = this.getConvertedCurrency(baseAmount, convertToCurrency, rates);
-
-    // if (!historicData) {
-    //   return null
-    // }
-    // const pastPrices = (Object.values(historicData))
-    // const ratesArray = []
-    //   for (let i = 0; i < pastPrices.length; i++) {
-    //     const element = pastPrices[i];
-    //     for (const property in element) {
-    //     ratesArray.push(element[property])
-    //    }
-    //    console.log(ratesArray)
-    //  }
-
 
     // Exchange Table
     const tableRows = Object.keys(rates).map(function(key) {

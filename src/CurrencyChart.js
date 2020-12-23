@@ -4,12 +4,6 @@ import './index.css'
 
 
 const CurrencyChart = (props) => {
-  // console.log('bob')
-  // console.log(props)
-  // console.log(props.pastdates)
-
-
-
   useEffect(() => {
     const ctx = document.getElementById("myChart");
     new Chart(ctx, {
