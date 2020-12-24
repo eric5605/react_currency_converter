@@ -5,7 +5,7 @@ import './App.css';
 import Header from './Header'
 import Currencies from './Currencies';
 import Footer from './Footer'
-import CurrencyChart from './CurrencyChart'
+// import CurrencyChart from './CurrencyChart'
 // import Chart from 'chart.js'
 
 const NotFound = () => {
@@ -18,8 +18,6 @@ const App = () => {
       <Header />
         <Switch>
           <Route path="/" exact component={Currencies} />
-          <Route path="/currencychart/" component={CurrencyChart} />
-
           <Route component={NotFound} />
        </Switch>
      <Footer />
@@ -28,3 +26,4 @@ const App = () => {
 }
 
 export default App;
+// <Route path="/currencychart/" component={CurrencyChart} />

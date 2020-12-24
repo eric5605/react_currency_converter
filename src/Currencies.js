@@ -6,8 +6,8 @@ class Currencies extends React.Component {
   constructor() {
     super();
     this.state = {
-      baseCurrency:'NZD',
-      convertToCurrency:'BRL',
+      baseCurrency:'USD',
+      convertToCurrency:'AUD',
       baseAmount: 1,
       rates: [],
       currencies: [],
@@ -25,19 +25,14 @@ class Currencies extends React.Component {
 
   componentDidMount() {
    this.callAPI(this.state.baseCurrency);
-   this.callHistoricAPI()
+   this.callHistoricAPI(this.state.baseCurrency, this.state.convertToCurrency)
   }
 
-  callHistoricAPI(base= this.state.baseCurrency, convertToCurrency= this.state.convertToCurrency) {
-
+  callHistoricAPI(baseCurrency, convertToCurrency) {
     const endDate = new Date().toISOString().split('T')[0];
     const startDate = new Date((new Date()).getTime() - (30 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0];
 
-    const api2 = (`https://alt-exchange-rate.herokuapp.com/history?start_at=${startDate}&end_at=${endDate}&base=${base}&symbols=${convertToCurrency}`)
-
-    // if (!this.state.historicData) {
-    //   return null
-    // }
+    const api2 = (`https://alt-exchange-rate.herokuapp.com/history?start_at=${startDate}&end_at=${endDate}&base=${baseCurrency}&symbols=${convertToCurrency}`)
 
       fetch(api2)
        .then(results => {
@@ -82,17 +77,16 @@ class Currencies extends React.Component {
   getPastRates() {
     let ratesArray = []
     Object.values(this.state.historicData).map(price => ratesArray = ratesArray.concat(Number(Object.values(price))))
-    // console.log(ratesArray)
     return ratesArray
   }
 
   render() {
-    const {currencies,rates,baseCurrency,baseAmount,convertToCurrency, historicData} = this.state;
+    const {currencies,rates,baseCurrency,baseAmount,convertToCurrency, historicData, pastDates} = this.state;
 
+    const historicRates = this.getPastRates(baseCurrency, convertToCurrency)
     const currencyChoice = currencies.map(currency =>
        <option key={currency} value={currency}> {currency} </option>
      );
-
     const result = this.getConvertedCurrency(baseAmount, convertToCurrency, rates);
 
     // Exchange Table
@@ -107,8 +101,6 @@ class Currencies extends React.Component {
         </tr>
        )
      })
-  const historicRates = this.getPastRates()
-  console.log(historicRates)
 
      return(
        <div className="container text-center converter">
@@ -152,8 +144,7 @@ class Currencies extends React.Component {
           <div className="CurrencyChart text-center py-5">
             <div>
                <CurrencyChart
-                 message="This is a message from parent Component Currencies.js"
-                 pastDates={this.state.pastDates}
+                 pastDates={pastDates}
                  historicRates={historicRates}
                  baseCurrency={baseCurrency}
                  compareCurrency={convertToCurrency}
