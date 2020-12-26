@@ -103,53 +103,65 @@ class Currencies extends React.Component {
      })
 
      return(
-       <div className="container text-center converter">
-         <form className='ui mini form main'>
+       <div className="container-fluid text-center pt-3">
+         <div className="row">
+           <div className="col-sm-12">
+             <form className='ui mini form main'>
 
-          <h3>Convert from: {baseCurrency}</h3>
-           <select
-              value={baseCurrency}
-              onChange={this.changeBaseCurrency}>{currencyChoice}
-               <option>{baseCurrency}</option>
-           </select>
-
-           <h3>Convert to: {convertToCurrency}</h3>
-           <select
-              value={convertToCurrency}
-              onChange={this.changeConvertToCurrency}>{currencyChoice}
-           </select>
-
-          <h3>Amount:</h3>
-            <input type='number'
-                   id='base-amount'
-                   defaultValue={baseAmount}
-                   className="amount-box"
-                   onChange={this.changeBaseAmount}>
-           </input>
-          <h3>{baseAmount} {baseCurrency} is equal to {result} {convertToCurrency}</h3>
-        </form>
-        <hr />
-
-        <h3 className="currency-list currency-table">Exchange Rates Table</h3>
-          <table className="table table-striped table-custom">
-            <thead>
-               <tr>
-                 <th className="country-code">Country</th>
-                 <th className="converted-rate">{baseAmount}.00 {baseCurrency}</th>
-               </tr>
-              </thead>
-               <tbody>{tableRows}</tbody>
-          </table>
-
-          <div className="CurrencyChart text-center py-5">
             <div>
-               <CurrencyChart
-                 pastDates={pastDates}
-                 historicRates={historicRates}
-                 baseCurrency={baseCurrency}
-                 compareCurrency={convertToCurrency}
-              />
-             </div>
+              <h3>Convert from: {baseCurrency}</h3>
+               <select
+                  value={baseCurrency}
+                  onChange={this.changeBaseCurrency}>{currencyChoice}
+                   <option>{baseCurrency}</option>
+               </select>
+            </div>
+
+            <div>
+              <h3>Convert to: {convertToCurrency}</h3>
+              <select
+                value={convertToCurrency}
+                onChange={this.changeConvertToCurrency}>{currencyChoice}
+              </select>
+            </div>
+
+            <h3>Amount:</h3>
+              <input type='number'
+                     id='base-amount'
+                     defaultValue={baseAmount}
+                     className="amount-box"
+                     onChange={this.changeBaseAmount}>
+             </input>
+            <h3>{baseAmount} {baseCurrency} is equal to {result} {convertToCurrency}</h3>
+          </form>
+        </div>
+
+          <hr />
+         <div className="col-sm-6 pt-4">
+            <h5 className="currency-list currency-table">Exchange Rates Table</h5>
+              <table className="table table-striped table-custom">
+                <thead>
+                   <tr>
+                     <th className="country-code">Country</th>
+                     <th className="converted-rate">{baseAmount}.00 {baseCurrency}</th>
+                   </tr>
+                  </thead>
+                   <tbody>{tableRows}</tbody>
+              </table>
+          </div>
+
+            <div className="col-sm-6">
+              <div className="CurrencyChart text-center py-5">
+                <div>
+                   <CurrencyChart
+                     pastDates={pastDates}
+                     historicRates={historicRates}
+                     baseCurrency={baseCurrency}
+                     compareCurrency={convertToCurrency}
+                  />
+                 </div>
+              </div>
+            </div>
          </div>
       </div>
      );

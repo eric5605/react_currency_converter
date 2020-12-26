@@ -13,14 +13,6 @@ footer {
   font-size: 30px;
 }
 
-
-table {
-  width: 90%;
-  margin: auto;
-  font-size: 25px;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 .table-custom,
 form {
   background-color: #deb887;
@@ -28,13 +20,8 @@ form {
 }
 
 .amount-box {
-  width: 70px;
+  width: 50px;
   text-align: center;
-}
-
-.converter {
-  font-size: 25px;
-  padding-top: 100px;
 }
 
 .main {

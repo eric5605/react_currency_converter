@@ -12,7 +12,7 @@ const CurrencyChart = (props) => {
         labels: props.pastDates,
         datasets: [
           {
-            label: `${props.baseCurrency}/${props.compareCurrency}`,
+            label: `Rates Last 30 Days: ${props.baseCurrency}/${props.compareCurrency}`,
             data: props.historicRates,
             backgroundColor: "rgba(255, 99, 132, 0.2)",
             borderColor: "rgba(255, 99, 132, 1)",
