@@ -74,16 +74,16 @@ class Currencies extends React.Component {
     return Number.parseFloat(baseAmount * rates[convertToCurrency]).toFixed(6);
   }
 
-  getPastRates() {
+  getPastRates(e) {
     let ratesArray = []
-    Object.values(this.state.historicData).map(price => ratesArray = ratesArray.concat(Number(Object.values(price))))
+    Object.values(e).map(price => ratesArray = ratesArray.concat(Number(Object.values(price))))
     return ratesArray
   }
 
   render() {
-    const {currencies,rates,baseCurrency,baseAmount,convertToCurrency, historicData, pastDates} = this.state;
+    const {currencies, rates, baseCurrency, baseAmount, convertToCurrency, historicData, pastDates} = this.state;
 
-    const historicRates = this.getPastRates(baseCurrency, convertToCurrency)
+    const historicRates = this.getPastRates(historicData)
     const currencyChoice = currencies.map(currency =>
        <option key={currency} value={currency}> {currency} </option>
      );
@@ -148,7 +148,6 @@ class Currencies extends React.Component {
                  historicRates={historicRates}
                  baseCurrency={baseCurrency}
                  compareCurrency={convertToCurrency}
-                 historicData={historicData}
               />
              </div>
          </div>
