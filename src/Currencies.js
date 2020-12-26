@@ -103,12 +103,12 @@ class Currencies extends React.Component {
      })
 
      return(
-       <div className="container text-center converter">
+       <div className="container-fluid w-75 text-center converter">
          <div className="row">
-           <div className="col-sm-5">
+           <div className="col-sm-5 pt-4">
              <form className='form main'>
 
-            <div>
+            <div className="py-4">
               <h3>Convert from: {baseCurrency}</h3>
                <select
                   value={baseCurrency}
