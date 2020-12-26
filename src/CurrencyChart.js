@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Chart from "chart.js";
 import './index.css'
 
@@ -27,7 +27,7 @@ const CurrencyChart = (props) => {
 
   return (
      <div className="container-fluid mx-auto">
-       <canvas id="myChart"  width="300" height="200"/>
+       <canvas id="myChart"  width="330" height="220"/>
      </div>
   );
 }

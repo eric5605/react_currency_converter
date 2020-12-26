@@ -4,7 +4,7 @@ import "./App.css"
 
 const Footer = () => (
   <footer className="footer py-2">
-     <div className="container">
+     <div className="container-fluid">
        <div className="row">
          <div className="col-sm-6">
            <span className="pb-3 h5" id="contact">Contact: <a href="https://github.com/eric5605" className="px-3"> GitHub </a>

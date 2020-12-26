@@ -32,9 +32,9 @@ class Currencies extends React.Component {
     const endDate = new Date().toISOString().split('T')[0];
     const startDate = new Date((new Date()).getTime() - (30 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0];
 
-    const api2 = (`https://alt-exchange-rate.herokuapp.com/history?start_at=${startDate}&end_at=${endDate}&base=${baseCurrency}&symbols=${convertToCurrency}`)
+    const apiHistoric = (`https://alt-exchange-rate.herokuapp.com/history?start_at=${startDate}&end_at=${endDate}&base=${baseCurrency}&symbols=${convertToCurrency}`)
 
-      fetch(api2)
+      fetch(apiHistoric)
        .then(results => {
           return results.json();
       }).then(data => this.setState({
@@ -44,9 +44,9 @@ class Currencies extends React.Component {
   }
 
   callAPI(base) {
-    const api = `https://alt-exchange-rate.herokuapp.com/latest?base=${base}`;
+    const apiBase = `https://alt-exchange-rate.herokuapp.com/latest?base=${base}`;
 
-    fetch(api)
+    fetch(apiBase)
      .then(results => {
         return results.json();
     }).then(data => this.setState({
@@ -103,10 +103,10 @@ class Currencies extends React.Component {
      })
 
      return(
-       <div className="container-fluid text-center pt-3">
+       <div className="container-fluid text-center pt-3 w-75 converter">
          <div className="row">
            <div className="col-sm-12">
-             <form className='ui mini form main'>
+             <form className='form main'>
 
             <div>
               <h3>Convert from: {baseCurrency}</h3>
@@ -137,7 +137,7 @@ class Currencies extends React.Component {
         </div>
 
           <hr />
-         <div className="col-sm-6 pt-4">
+         <div className="col-sm-4 pt-4">
             <h5 className="currency-list currency-table">Exchange Rates Table</h5>
               <table className="table table-striped table-custom">
                 <thead>
@@ -150,7 +150,7 @@ class Currencies extends React.Component {
               </table>
           </div>
 
-            <div className="col-sm-6">
+            <div className="col-sm-8">
               <div className="CurrencyChart text-center py-5">
                 <div>
                    <CurrencyChart
