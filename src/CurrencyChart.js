@@ -27,7 +27,7 @@ const CurrencyChart = (props) => {
 
   return (
      <div className="container-fluid mx-auto">
-       <canvas id="myChart"  width="330" height="220"/>
+       <canvas id="myChart"  width="320" height="220"/>
      </div>
   );
 }
