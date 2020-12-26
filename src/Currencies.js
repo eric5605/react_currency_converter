@@ -103,9 +103,9 @@ class Currencies extends React.Component {
      })
 
      return(
-       <div className="container-fluid text-center pt-3 w-75 converter">
+       <div className="container text-center converter">
          <div className="row">
-           <div className="col-sm-12">
+           <div className="col-sm-5">
              <form className='form main'>
 
             <div>
@@ -137,21 +137,9 @@ class Currencies extends React.Component {
         </div>
 
           <hr />
-         <div className="col-sm-4 pt-4">
-            <h5 className="currency-list currency-table">Exchange Rates Table</h5>
-              <table className="table table-striped table-custom">
-                <thead>
-                   <tr>
-                     <th className="country-code">Country</th>
-                     <th className="converted-rate">{baseAmount}.00 {baseCurrency}</th>
-                   </tr>
-                  </thead>
-                   <tbody>{tableRows}</tbody>
-              </table>
-          </div>
 
-            <div className="col-sm-8">
-              <div className="CurrencyChart text-center py-5">
+            <div className="col-sm-7">
+              <div className="text-center">
                 <div>
                    <CurrencyChart
                      pastDates={pastDates}
@@ -162,6 +150,20 @@ class Currencies extends React.Component {
                  </div>
               </div>
             </div>
+
+            <div className="col-sm-12 mx-auto pt-5">
+               <h5 className="currency-list currency-table">Exchange Rates Table</h5>
+                 <table className="table table-striped table-custom">
+                   <thead>
+                      <tr>
+                        <th className="country-code">Country</th>
+                        <th className="converted-rate">{baseAmount}.00 {baseCurrency}</th>
+                      </tr>
+                     </thead>
+                      <tbody>{tableRows}</tbody>
+                 </table>
+             </div>
+
          </div>
       </div>
      );
